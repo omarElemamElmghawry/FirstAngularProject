@@ -14,8 +14,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   //properties
   userData: ILoginReturnData | null = null;
 
-  userDataByPhoneNumber: IGetUserByPhoneNumberData | null = null;
-
   constructor(public authService: AuthenticationService) { }
 
   //subscription properties
@@ -34,10 +32,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subscribeToGetUserDataObservables() {
     this.authService.loggedInSubject.subscribe((res: ILoginReturnData | null) => {
       this.userData = res;
+      console.log(this.userData);
     })
-    this.authService.UserDataByPhoneNumberSubject.subscribe((data: IGetUserByPhoneNumberData | null) => {
-      this.userDataByPhoneNumber = data; 
-    });
   }
   logOut() {
     this.authService.logout();

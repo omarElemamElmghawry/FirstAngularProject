@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CoreRoutingModule } from './core-routing.module';
 import { MenubarModule } from 'primeng/menubar';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RippleModule } from 'primeng/ripple';
@@ -11,6 +10,7 @@ import { SetMainRequestDataInterceptor } from './interceptors/set-main-request-d
 import { AddAddressComponent } from './components/add-address/add-address.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -22,16 +22,17 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    CoreRoutingModule,
     MenubarModule,
     HttpClientModule,
     RippleModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    DropdownModule
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: SetMainRequestDataInterceptor, multi: true }

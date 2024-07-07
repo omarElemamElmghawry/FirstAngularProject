@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Token } from '../models/token';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SetMainRequestDataInterceptor implements HttpInterceptor {
@@ -30,11 +31,13 @@ export class SetMainRequestDataInterceptor implements HttpInterceptor {
       }
     });
 
-    if (!request.url.includes('/en/')) {
-      const newUrl = request.url.replace('/api/', `/${lang}/api/`); // Adjust path as needed
-      modifiedReq = request.clone({ url: newUrl });
+    if (request.url.includes(environment.apiUrl)) {
+      if (!request.url.includes('/en/')) {
+        const newUrl = request.url.replace('/api/', `/${lang}/api/`); // Adjust path as needed
+        modifiedReq = request.clone({ url: newUrl });
+      }
     }
-
+    
     // Pass the modified request to the next handler
     return next.handle(modifiedReq);
   }
