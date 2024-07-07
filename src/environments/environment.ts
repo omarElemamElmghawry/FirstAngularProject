@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://mueen-apitest.azurewebsites.net/api'
+  apiUrl: 'https://mueen-apitest.azurewebsites.net/api',
+  googleMapKey: 'AIzaSyDWIrijcoofKjIO56H6HD7BzmHs7E7x89M',
+  lang: 'ar'
 };
 
 /*

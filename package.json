@@ -21,6 +21,7 @@
     "@angular/router": "^14.2.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "primeicons": "^7.0.0",
     "primeng": "^14.2.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -2,16 +2,18 @@
     <div class="mb-3 form-group">
         <div class="mb-3">
             <label for="cityId" class="form-label">City</label>
-            <select
-                class="form-select form-select-lg"
-                name="cityId"
-                id="cityId"
+            <div class="w-100">
+                <p-dropdown
                 formControlName="cityId"
-                (change)="onCityChange()"
-            >
-                <option selected value="-1">Select one</option>
-                <option *ngFor="let city of allCities?.data" [value]="city.key">{{ city.value }}</option>
-            </select>
+                [options]="allCities?.data!"
+                optionLabel="value"
+                optionValue="key"
+                placeholder="Select one"
+                (onChange)="onCityChange()"
+                styleClass="full-width-dropdown"
+                >
+                </p-dropdown>
+            </div>
         </div>
         
         <div class="text-danger" *ngIf="getControl('cityId')?.invalid && getControl('cityId')?.touched">
@@ -22,16 +24,16 @@
     <div class="mb-3 form-group">
         <div class="mb-3">
             <label for="districtId" class="form-label">District</label>
-            <select
-                class="form-select form-select-lg"
-                name="districtId"
-                id="districtId"
-                formControlName="districtId"
-                (change)="onDistrictChange()"
+            <p-dropdown
+              formControlName="districtId"
+              [options]="cityDistracts?.data!"
+              optionLabel="value"
+              optionValue="key"
+              placeholder="Select one"
+              (onChange)="onDistrictChange()"
+              class="full-width-dropdown"
             >
-                <option value="-1">Select one</option>
-                <option *ngFor="let district of cityDistracts?.data" [value]="district.key">{{ district.value }}</option>
-            </select>
+            </p-dropdown>
         </div>
         
         <div class="text-danger" *ngIf="getControl('districtId')?.invalid && getControl('districtId')?.touched">
@@ -44,16 +46,16 @@
     <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
         <div class="mb-3">
             <label for="houseType" class="form-label">House Type</label>
-            <select
-                class="form-select form-select-lg"
-                name="houseType"
-                id="houseType"
-                formControlName="houseType"
-                (change)="onHouseTypeChange()"
+            <p-dropdown
+              formControlName="houseType"
+              [options]="houseTypes?.data!"
+              optionLabel="value"
+              optionValue="key"
+              placeholder="Select one"
+              (onChange)="onHouseTypeChange()"
+              class="full-width-dropdown"
             >
-                <option selected value="-1">Select one</option>
-                <option *ngFor="let houseType of houseTypes?.data" [value]="houseType.key">{{ houseType.value }}</option>
-            </select>
+            </p-dropdown>
         </div>
         
         <div class="text-danger" *ngIf="getControl('houseType')?.invalid && getControl('houseType')?.touched">
@@ -64,15 +66,16 @@
     <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
         <div class="mb-3">
             <label for="houseFloor" class="form-label">House Floor</label>
-            <select
-                class="form-select form-select-lg"
-                name="houseFloor"
-                id="houseFloor"
-                formControlName="floorNo"
+            <p-dropdown
+              formControlName="floorNo"
+              [options]="houseFloors?.data!"
+              optionLabel="value"
+              optionValue="key"
+              placeholder="Select one"
+              (onChange)="onHouseTypeChange()"
+              class="full-width-dropdown"
             >
-                <option selected value="-1">Select one</option>
-                <option *ngFor="let houseFloor of houseFloors?.data" [value]="houseFloor.key">{{ houseFloor.value }}</option>
-            </select>
+            </p-dropdown>
         </div>
         
         <div class="text-danger" *ngIf="getControl('floorNo')?.invalid && getControl('houseFloor')?.touched">

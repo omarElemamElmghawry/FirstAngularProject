@@ -2,7 +2,7 @@
     <a class="nav-link" routerLink="/core/home" routerLinkActive="active">Home</a>
     
     <ul class="nav ms-auto">
-        <ng-container *ngIf="!(userData || userDataByPhoneNumber); else loggedIn">
+        <ng-container *ngIf="!userData; else loggedIn">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/authentication/login" routerLinkActive="active">Login</a>
             </li>
@@ -10,12 +10,8 @@
 
         <ng-template #loggedIn>
             <li class="nav-item dropdown">
-                <a *ngIf="userData && !userDataByPhoneNumber" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a *ngIf="userData" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{userData.data.user.userName}}
-                </a>
-
-                <a *ngIf="userDataByPhoneNumber" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{userDataByPhoneNumber.data.userName}}
                 </a>
                 
                 <ul class="dropdown-menu">

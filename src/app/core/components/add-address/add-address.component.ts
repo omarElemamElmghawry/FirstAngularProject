@@ -96,7 +96,6 @@ export class AddAddressComponent implements OnInit {
     this.getCityDistracts(this.getControl('cityId')?.value);
   }
   onDistrictChange() {
-    console.log(this.getControl('districtId')?.value);
     this.displayDistrictPositionOnMap(this.getControl('districtId')?.value);
     this.showOrDisplayOtherAddressControls();
     this.getHouseTypes();
@@ -108,8 +107,8 @@ export class AddAddressComponent implements OnInit {
   }
 
   showOrDisplayOtherAddressControls() {
-    if (this.getControl("districtId")?.value != "-1"
-        && this.getControl("cityId")?.value != "-1") {
+    if (this.getControl("districtId")?.value
+        && this.getControl("cityId")?.value) {
           this.displayOtherAddressControls(true);
     } else {
       this.displayOtherAddressControls(false);
@@ -150,8 +149,8 @@ export class AddAddressComponent implements OnInit {
       houseType: ["", [Validators.required]],
       floorNo: ["", [Validators.required]],
       apartmentNo: [""],
-      cityId: ["-1", [Validators.required]],
-      districtId: ["-1", [Validators.required]],
+      cityId: ["", [Validators.required]],
+      districtId: ["", [Validators.required]],
       latitude: ["", [Validators.required]],
       longitude: ["", [Validators.required]],
       addressNotes: ["", [Validators.required]],

@@ -6,6 +6,7 @@ import { ILoginUserData } from '../models/ilogin-user-data';
 import { GenericServiceService } from 'src/app/core/services/generic-service.service';
 import { ILoginReturnData } from '../models/ilogin-return-data';
 import { IGetUserByPhoneNumberData } from '../models/iget-user-by-phone-number-data';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,10 @@ export class AuthenticationService {
   private url = environment.apiUrl + "/Account";
   //subjects
   private isLoggedInSubject!: BehaviorSubject<ILoginReturnData | null>;
-  private userDataByPhoneNumberSubject!: BehaviorSubject<IGetUserByPhoneNumberData | null>;
 
   constructor(private http: HttpClient,
-    private genericService: GenericServiceService<ILoginUserData>
+    private genericService: GenericServiceService<ILoginUserData>,
+    private router: Router
   ) {
     this.initializeSubjects();
     this.getUserDataIfLoggedIn();
@@ -28,7 +29,6 @@ export class AuthenticationService {
   //methods
   initializeSubjects() {
     this.isLoggedInSubject = new BehaviorSubject<ILoginReturnData | null>(null);
-    this.userDataByPhoneNumberSubject = new BehaviorSubject<IGetUserByPhoneNumberData | null>(null);
   }
   getUserDataIfLoggedIn() {
     if (this.isLoggedIn()) {
@@ -65,9 +65,9 @@ export class AuthenticationService {
 
   logout(){ 
     this.emitUserData(null);
-    this.emitUserDataByPhoneNumber(null);
     localStorage.removeItem("token");
     localStorage.removeItem("phoneNumber");
+    this.router.navigate(['/authentication/login']);
   }
 
   getUserByPhoneNumber(phoneNumber: string): Observable<IGetUserByPhoneNumberData> {
@@ -84,15 +84,27 @@ export class AuthenticationService {
   }
 
   emitUserDataByPhoneNumber(userData: IGetUserByPhoneNumberData | null) {
-    this.userDataByPhoneNumberSubject.next(userData);
+    this.emitUserData(this.IGetUserByPhoneNumberDataToIReturnLoginData(userData));
+  }
+
+  IGetUserByPhoneNumberDataToIReturnLoginData(userData: IGetUserByPhoneNumberData | null): ILoginReturnData {
+    let originalUserData: ILoginReturnData = {
+      data: {
+        token: "",
+        user: {...userData?.data!},
+        twoFactorAuthEnabled: false
+      },
+      status: userData?.status!,
+      code: userData?.code!,
+      message: userData?.message!,
+      location: userData?.location!
+    };
+
+    return originalUserData
   }
 
   //getters
   get loggedInSubject() {
     return this.isLoggedInSubject.asObservable();
-  }
-
-  get UserDataByPhoneNumberSubject() {
-    return this.userDataByPhoneNumberSubject.asObservable();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ILoginUserData } from '../../models/ilogin-user-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(private fb: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) { }
 
   //life cycle hooks
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
   loginObserver = {
     next: (tokenData: any) => {
       this.authService.setUserData(tokenData);
+      this.router.navigate(['/authentication/home']);
     },
     error: (err: Error) => {
       console.log(err);
