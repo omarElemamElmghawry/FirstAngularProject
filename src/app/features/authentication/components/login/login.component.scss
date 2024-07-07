@@ -1,0 +1,60 @@
+.container {
+    max-width: 400px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-label {
+    transition: color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    border-radius: 0.375rem;
+    border: 2px solid #ced4da;
+  }
+  
+  .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .text-danger {
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(-10px);
+  }
+  
+  .text-danger.ng-touched.ng-invalid {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .btn-primary {
+    transition: background 0.3s ease;
+    background: #007bff;
+    border-color: #007bff;
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .btn-primary:disabled {
+    background: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    background: #0056b3;
+    border-color: #004085;
+  }
+
+  .text-danger {
+    opacity: 1 !important;
+  }
+  

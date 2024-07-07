@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm" (ngSubmit)="submit()" class="container p-4 mt-5 shadow-lg rounded bg-light">
+
+    <div class="mb-3 position-relative">
+        <label for="phone" class="form-label">Phone number</label>
+        <input type="text" id="phone" formControlName="userName" class="form-control" value="0502153444">
+        <div *ngIf="getControl('userName')?.invalid && getControl('userName')?.touched" class="text-danger small mt-3">
+            <span *ngIf="getControl('userName')?.errors?.['required']">Phone number is required</span>
+            <span *ngIf="getControl('userName')?.errors?.['pattern']">Phone number must start with 050</span>
+            <span *ngIf="getControl('userName')?.errors?.['minlength']">Phone number length must be greater than 10 characters</span>
+        </div>
+    </div>
+
+    <div class="mb-3 position-relative">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" formControlName="password" class="form-control" value="123456">
+        <div *ngIf="getControl('password')?.invalid && getControl('password')?.touched" class="text-danger small mt-3">
+            <span *ngIf="getControl('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="getControl('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+</form>

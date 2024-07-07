@@ -1,0 +1,4 @@
+<google-map height="500px" width="100%" [center]="center" [zoom]="zoom" (mapClick)="mapClick($event)">
+    <map-polygon [paths]="polygonPaths" [options]="polygonOptions"></map-polygon>
+    <map-marker [options]="markerOptions" [position]="markerPosition!" *ngIf="markerPosition"></map-marker>
+</google-map>

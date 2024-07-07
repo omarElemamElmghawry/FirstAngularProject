@@ -1,0 +1,112 @@
+<form [formGroup]="addressForm" (ngSubmit)="submitAddress()" class="container">
+    <div class="mb-3 form-group">
+        <div class="mb-3">
+            <label for="cityId" class="form-label">City</label>
+            <select
+                class="form-select form-select-lg"
+                name="cityId"
+                id="cityId"
+                formControlName="cityId"
+                (change)="onCityChange()"
+            >
+                <option selected value="-1">Select one</option>
+                <option *ngFor="let city of allCities?.data" [value]="city.key">{{ city.value }}</option>
+            </select>
+        </div>
+        
+        <div class="text-danger" *ngIf="getControl('cityId')?.invalid && getControl('cityId')?.touched">
+            <span *ngIf="getControl('cityId')?.errors?.['required']">City is required</span>
+        </div>
+    </div>
+
+    <div class="mb-3 form-group">
+        <div class="mb-3">
+            <label for="districtId" class="form-label">District</label>
+            <select
+                class="form-select form-select-lg"
+                name="districtId"
+                id="districtId"
+                formControlName="districtId"
+                (change)="onDistrictChange()"
+            >
+                <option value="-1">Select one</option>
+                <option *ngFor="let district of cityDistracts?.data" [value]="district.key">{{ district.value }}</option>
+            </select>
+        </div>
+        
+        <div class="text-danger" *ngIf="getControl('districtId')?.invalid && getControl('districtId')?.touched">
+            <span *ngIf="getControl('districtId')?.errors?.['required']">District is required</span>
+        </div>
+    </div>
+
+    <app-google-maps [polygonPaths]="polygonPaths" *ngIf="districtAndCitySelected"></app-google-maps>
+
+    <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
+        <div class="mb-3">
+            <label for="houseType" class="form-label">House Type</label>
+            <select
+                class="form-select form-select-lg"
+                name="houseType"
+                id="houseType"
+                formControlName="houseType"
+                (change)="onHouseTypeChange()"
+            >
+                <option selected value="-1">Select one</option>
+                <option *ngFor="let houseType of houseTypes?.data" [value]="houseType.key">{{ houseType.value }}</option>
+            </select>
+        </div>
+        
+        <div class="text-danger" *ngIf="getControl('houseType')?.invalid && getControl('houseType')?.touched">
+            <span *ngIf="getControl('houseType')?.errors?.['required']">House Type is required</span>
+        </div>
+    </div>
+
+    <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
+        <div class="mb-3">
+            <label for="houseFloor" class="form-label">House Floor</label>
+            <select
+                class="form-select form-select-lg"
+                name="houseFloor"
+                id="houseFloor"
+                formControlName="floorNo"
+            >
+                <option selected value="-1">Select one</option>
+                <option *ngFor="let houseFloor of houseFloors?.data" [value]="houseFloor.key">{{ houseFloor.value }}</option>
+            </select>
+        </div>
+        
+        <div class="text-danger" *ngIf="getControl('floorNo')?.invalid && getControl('houseFloor')?.touched">
+            <span *ngIf="getControl('floorNo')?.errors?.['required']">House Floor is required</span>
+        </div>
+    </div>
+
+    <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
+        <label for="houseNo" class="form-label">House No</label>
+        <input
+            type="text"
+            class="form-control"
+            name="houseNo"
+            id="houseNo"
+            formControlName="houseNo"
+        />
+        <div class="text-danger" *ngIf="getControl('houseNo')?.invalid && getControl('houseNo')?.touched">
+            <span *ngIf="getControl('houseNo')?.errors?.['required']">House No is required</span>
+        </div>
+    </div>
+
+    <div class="mb-3 form-group" *ngIf="districtAndCitySelected && getControl('houseType')?.value == 1">
+        <label for="apartmentNo" class="form-label">Apartment No</label>
+        <input
+            type="text"
+            class="form-control"
+            name="apartmentNo"
+            id="apartmentNo"
+            formControlName="apartmentNo"
+        />
+        <div class="text-danger" *ngIf="getControl('apartmentNo')?.invalid && getControl('apartmentNo')?.touched">
+            <span *ngIf="getControl('apartmentNo')?.errors?.['required']">Apartment No is required</span>
+        </div>
+    </div>
+
+    <input type="submit" value="Submit" class="btn btn-primary" [disabled]="addressForm.invalid"/>
+</form>
