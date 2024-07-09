@@ -32,4 +32,12 @@ export class GenericServiceService<entity> {
       catchError(this.handlingErrors)
     );
   } 
+
+  insert<T>(subUrl: string, entity: T): Observable<T> {
+    return this.http.post<T>(`${environment.apiUrl}/${subUrl}`, entity, this.httpOptions)
+    .pipe(
+      retry(2),
+      catchError(this.handlingErrors)
+    );
+  }
 }

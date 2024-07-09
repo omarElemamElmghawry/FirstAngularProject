@@ -41,7 +41,15 @@
         </div>
     </div>
 
-    <app-google-maps [polygonPaths]="polygonPaths" *ngIf="districtAndCitySelected"></app-google-maps>
+    <!-- <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
+        <label for="addressNotes" class="form-label">Full Address</label>
+        <input type="text" class="form-control" formControlName="addressNotes" readonly>
+        <div class="text-danger" *ngIf="getControl('addressNotes')?.invalid && getControl('addressNotes')?.touched">
+            <span *ngIf="getControl('addressNotes')?.errors?.['addressNotes']">Full address is required</span>
+        </div>
+    </div> -->
+
+    <app-google-maps [polygonPaths]="polygonPaths" *ngIf="districtAndCitySelected" (selectedFullAddress)="onFullAddressChange($event)"></app-google-maps>
 
     <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
         <div class="mb-3">
@@ -86,11 +94,12 @@
     <div class="mb-3 form-group" *ngIf="districtAndCitySelected">
         <label for="houseNo" class="form-label">House No</label>
         <input
-            type="text"
+            type="number"
             class="form-control"
             name="houseNo"
             id="houseNo"
             formControlName="houseNo"
+            (change)="onHouseNumberChange(); printForm()"
         />
         <div class="text-danger" *ngIf="getControl('houseNo')?.invalid && getControl('houseNo')?.touched">
             <span *ngIf="getControl('houseNo')?.errors?.['required']">House No is required</span>
@@ -104,7 +113,7 @@
             class="form-control"
             name="apartmentNo"
             id="apartmentNo"
-            formControlName="apartmentNo"
+            formControlName="houseNumber"
         />
         <div class="text-danger" *ngIf="getControl('apartmentNo')?.invalid && getControl('apartmentNo')?.touched">
             <span *ngIf="getControl('apartmentNo')?.errors?.['required']">Apartment No is required</span>

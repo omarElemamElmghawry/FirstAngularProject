@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { IFullAddressInfo } from 'src/app/core/models/add-address/ifull-address-info';
 import { GeoCodingService } from 'src/app/core/services/geo-coding.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class GoogleMapsComponent implements OnInit {
   center: google.maps.LatLngLiteral = { lat: 24.5807, lng: 46.630343 }; // Default center
   zoom = 13; // Default zoom
   @Input() polygonPaths: google.maps.LatLngLiteral[] = [];
+  @Output() selectedFullAddress = new EventEmitter<IFullAddressInfo>();
   mapError = false;
   private saudiArabiaBounds = {
     minLat: 15.0,
@@ -20,6 +22,7 @@ export class GoogleMapsComponent implements OnInit {
   };
 
   polygonOptions: google.maps.PolygonOptions = {
+    clickable: true,
     strokeColor: '#FF0000',
     strokeOpacity: 1.0,
     strokeWeight: 2,
@@ -45,7 +48,6 @@ export class GoogleMapsComponent implements OnInit {
   getCityName(lat: number, lng: number) {
     this.geocodingService.getCityName(lat, lng).subscribe({
       next: (response: any) => {
-        console.log(response);
         const results = response.results;
         if (results.length > 0) {
           const addressComponents = results[0].address_components;
@@ -53,8 +55,8 @@ export class GoogleMapsComponent implements OnInit {
             component.types.includes('locality') ||
             component.types.includes('administrative_area_level_1')
           );
-          if (city) {
-            console.log('City:', city.long_name);
+          if (response.results[0]["formatted_address"]) {
+            this.emitTheFullAddress(lat, lng, response.results[0]["formatted_address"]);
           } else {
             console.error('City not found in response');
           }
@@ -67,6 +69,16 @@ export class GoogleMapsComponent implements OnInit {
       }
     })
   }
+
+  emitTheFullAddress(lat: number, lng: number, address: string) {
+    const fullAddressModel: IFullAddressInfo = {
+      fullAddress: address,
+      latitute: lat.toString(),
+      longitude: lng.toString()
+    }
+    this.selectedFullAddress.emit(fullAddressModel);
+  }
+
   mapClick(event: google.maps.MapMouseEvent) {
     this.polygonPaths = [
       { lat: 32.154301, lng: 35.529152 }, // Define the coordinates of Saudi Arabia boundary points
