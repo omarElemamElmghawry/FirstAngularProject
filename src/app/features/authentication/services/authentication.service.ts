@@ -71,7 +71,6 @@ export class AuthenticationService {
   }
 
   getUserByPhoneNumber(phoneNumber: string): Observable<IGetUserByPhoneNumberData> {
-    console.log(`${this.url}/GetUserByPhoneNumber?phoneNumber=${phoneNumber}`)
     return this.http.get<IGetUserByPhoneNumberData>(`${this.url}/GetUserByPhoneNumber?phoneNumber=${phoneNumber}`)
     .pipe(
       retry(2),

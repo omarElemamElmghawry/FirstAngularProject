@@ -1,14 +1,17 @@
 export interface IContactAddress {
-    contactId: string;
-    locationId: string;
-    houseNo: string;
+    houseNo: number;
     houseType: number;
     floorNo: number;
-    apartmentNo: string;
     cityId: string;
     districtId: string;
     latitude: string;
     longitude: string;
-    addressNotes: string;
     type: number;
+    cityName: string;
+    districtName: string;
+    houseNumber: number;
+    houseTypeText: string;
+    contactId: string;
 }
+
+

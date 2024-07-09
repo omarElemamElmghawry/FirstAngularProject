@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ICities } from '../models/icities';
 import { catchError, retry } from 'rxjs';
 import { GenericServiceService } from 'src/app/core/services/generic-service.service';
-import { IContactAddress } from '../models/icontactaddress';
+import { IContactAddress } from '../../../core/services/icontactaddress';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

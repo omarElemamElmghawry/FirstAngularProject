@@ -1,5 +1,6 @@
 <nav class="nav justify-content-center">
     <a class="nav-link" routerLink="/core/home" routerLinkActive="active">Home</a>
+    <a class="nav-link" *ngIf="userData" routerLink="/authentication/add-contact-address" routerLinkActive="active">Add contact address</a>
     
     <ul class="nav ms-auto">
         <ng-container *ngIf="!userData; else loggedIn">
